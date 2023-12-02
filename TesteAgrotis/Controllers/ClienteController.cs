@@ -30,59 +30,55 @@ namespace TesteAgrotis.Controllers
         [HttpPost]
         public JsonResult Salvar(Cliente cliente)
         {
-            using (var transaction = ctx.Database.BeginTransaction())
+            try
             {
-                try
+                if (cliente == null)
                 {
-                    if (cliente == null)
+                    return Json(new { success = false, message = "Os dados do cliente estão vazios. Verifique e tente novamente." });
+                }
+                else if (cliente.Nome == "")
+                {
+                    return Json(new { success = false, message = "Por favor preencha o campo nome. Verifique e tente novamente." });
+                }
+                else if (cliente.CEP == "")
+                {
+                    return Json(new { success = false, message = "Por favor preencha o campo CEP. Verifique e tente novamente." });
+                }
+                else
+                {
+                    if (ModelState.IsValid)
                     {
-                        return Json(new { success = false, message = "Os dados do cliente estão vazios. Verifique e tente novamente." });
-                    }
-                    else if(cliente.Nome == "")
-                    {
-                        return Json(new { success = false, message = "Por favor preencha o campo nome. Verifique e tente novamente." });
-                    }
-                    else if(cliente.CEP == "")
-                    {
-                        return Json(new { success = false, message = "Por favor preencha o campo CEP. Verifique e tente novamente." });
-                    }
-                    else
-                    {
-                        if (ModelState.IsValid)
+                        cliente.DtCreate = DateTime.Now;
+                        cliente.Ativo = true;
+                        ctx.Clientes.Add(cliente);
+
+                        int clienteSalvo = ctx.SaveChanges();
+
+                        if (clienteSalvo > 0)
                         {
-                            cliente.DtCreate = DateTime.Now;
-                            cliente.Ativo = true;
-                            ctx.Clientes.Add(cliente);
-
-                            int clienteSalvo = ctx.SaveChanges();
-
-                            if (clienteSalvo > 0)
-                            {
-                                transaction.Commit();
-                                return Json(new { success = true, message = "Cliente salvo com sucesso!" });
-                            }
-                            else
-                            {
-                                return Json(new { success = false, message = "Erro ao salvar o cliente." });
-                            }
+                            return Json(new { success = true, message = "Cliente salvo com sucesso!" });
                         }
                         else
                         {
-                            var errors = ModelState.Values
-                                .SelectMany(v => v.Errors)
-                                .Select(e => e.ErrorMessage);
-                            return Json(new { success = false, message = "Erro ao validar o cliente.", errors });
+                            return Json(new { success = false, message = "Erro ao salvar o cliente." });
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    return Json(new { success = false, message = "Erro ao salvar o cliente: " + ex.Message });
+                    else
+                    {
+                        var errors = ModelState.Values
+                            .SelectMany(v => v.Errors)
+                            .Select(e => e.ErrorMessage);
+                        return Json(new { success = false, message = "Erro ao validar o cliente.", errors });
+                    }
                 }
             }
-        }
+            catch (Exception ex)
+            {
 
+                return Json(new { success = false, message = "Erro ao salvar o cliente: " + ex.Message });
+            }
+
+        }
 
         // GET: ClienteController/Delete/5
         public IActionResult Excluir(int id)

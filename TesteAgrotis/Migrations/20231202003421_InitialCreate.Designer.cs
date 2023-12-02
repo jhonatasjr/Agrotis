@@ -11,7 +11,7 @@ using TesteAgrotis;
 namespace TesteAgrotis.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20231202000552_InitialCreate")]
+    [Migration("20231202003421_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +97,6 @@ namespace TesteAgrotis.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observacao")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PesoTotalPedido")

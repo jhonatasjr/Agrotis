@@ -95,7 +95,6 @@ namespace TesteAgrotis.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observacao")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PesoTotalPedido")

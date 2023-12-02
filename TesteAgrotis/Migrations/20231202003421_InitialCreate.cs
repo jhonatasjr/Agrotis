@@ -62,7 +62,7 @@ namespace TesteAgrotis.Migrations
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
                     PrecoTotalPedido = table.Column<string>(type: "TEXT", nullable: false),
                     PesoTotalPedido = table.Column<string>(type: "TEXT", nullable: false),
-                    Observacao = table.Column<string>(type: "TEXT", nullable: false),
+                    Observacao = table.Column<string>(type: "TEXT", nullable: true),
                     DtCreate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DtDeleted = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Ativo = table.Column<bool>(type: "INTEGER", nullable: false)
