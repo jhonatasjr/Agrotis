@@ -1,0 +1,58 @@
+﻿@model TesteAgrotis.Models.Cliente
+
+
+<h2 class="mb-5">Detalhes do Cliente</h2>
+
+<div class="row">
+    <div class="mb-3 col-md-1">
+        <label asp-for="Id" class="form-label">Código</label>
+        <input asp-for="Id" class="form-control" disabled />
+    </div>
+    <div class="mb-3 col-md-6">
+        <label asp-for="Nome" class="form-label">Nome</label>
+        <input asp-for="Nome" class="form-control" disabled />
+    </div>
+    <b></b>
+    <div class="mb-3 col-md-3">
+        <label asp-for="CEP" class="form-label">CEP</label>
+        <input asp-for="CEP" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="Logradouro" class="form-label">Logradouro</label>
+        <input asp-for="Logradouro" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="Numero" class="form-label">Número</label>
+        <input asp-for="Numero" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="Complemento" class="form-label">Complemento</label>
+        <input asp-for="Complemento" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="Bairro" class="form-label">Bairro</label>
+        <input asp-for="Bairro" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="Cidade" class="form-label">Cidade</label>
+        <input asp-for="Cidade" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="UF" class="form-label">UF</label>
+        <input asp-for="UF" class="form-control" disabled />
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <label asp-for="CodigoIBGE" class="form-label">Código IBGE</label>
+        <input asp-for="CodigoIBGE" class="form-control" disabled />
+    </div>
+</div>
+
+<!-- Aqui pode adicionar um botão para voltar à lista de clientes -->
+<a asp-controller="Cliente" asp-action="Index" class="btn btn-primary float-end">Voltar</a>

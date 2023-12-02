@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Mvc
+@model IEnumerable<TesteAgrotis.Models.Cliente>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2><i class="fa fa-search"></i> Clientes</h2>
+    </div>
+
+    <div class="col-md-12">
+        <div class="text-end mb-3">
+            <a asp-controller="Cliente" asp-action="Novo" class="btn btn-sm btn-primary">Adicionar Novo Cliente</a>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table id="tabelaClientes" class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Cód.</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">Dt Cadastro</th>
+                        <th scope="col" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">Não existem clientes cadastrados.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var cliente in Model)
+                        {
+                            <tr>
+                                <th>@cliente.Id</th>
+                                <td>@cliente.Nome</td>
+                                <td>@cliente.Cidade</td>
+                                <td>@cliente.DtCreate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <a asp-controller="Cliente" asp-action="Excluir" asp-route-id="@cliente.Id" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a asp-controller="Cliente" asp-action="Detalhes" asp-route-id="@cliente.Id" class="btn btn-sm btn-info">Detalhes</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // $(document).ready(function () {
+    //     let table = new DataTable('#tabelaClientes');
+
+    //     $('#tabelaClientes').DataTable({
+    //         searching: true, // Habilita a caixa de pesquisa
+    //         paging: true, // Habilita a paginação
+    //         "language": {
+    //             "lengthMenu": "Exibe _MENU_ Registros por página",
+    //             "search": "Procurar",
+    //             "paginate": { "previous": "Retorna", "next": "Avança" },
+    //             "zeroRecords": "Nada foi encontrado",
+    //             "info": "Exibindo página _PAGE_ de _PAGES_",
+    //             "infoEmpty": "Sem registros",
+    //             "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+    //         },
+    //     });
+    // });
+
+</script>

@@ -1,0 +1,53 @@
+﻿@model TesteAgrotis.Models.Produto
+
+
+<h2>Detalhes do Produto</h2>
+
+<form asp-action="Salvar" method="post" class="needs-validation" novalidate>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Id" class="form-label">Código</label>
+                <input asp-for="Id" class="form-control" disabled />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label">Nome</label>
+                <input asp-for="Nome" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label asp-for="Descricao" class="form-label">Descrição</label>
+                <textarea asp-for="Descricao" class="form-control" rows="4" disabled></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="PesoLiquido" class="form-label">Peso Líquido</label>
+                <input asp-for="PesoLiquido" class="form-control" disabled />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="PrecoUnitario" class="form-label">Preço Unitário</label>
+                <input asp-for="PrecoUnitario" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="float-end">
+        <div class="d-inline-block">
+            <a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+</form>

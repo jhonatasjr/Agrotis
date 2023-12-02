@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TesteAgrotis.Models.Produto>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2><i class="fa fa-box"></i> Produtos</h2>
+    </div>
+
+    <div class="col-md-12">
+        <div class="text-end mb-3">
+            <a asp-controller="Produto" asp-action="Novo" class="btn btn-sm btn-primary">Adicionar Novo Produto</a>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table id="tabelaProdutos" class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Cód.</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso Líquido</th>
+                        <th scope="col">Preço Unitário</th>
+                        <th scope="col" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">Não existem produtos cadastrados.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var produto in Model)
+                        {
+                            <tr>
+                                <td>@produto.Id</td>
+                                <td>@produto.Nome</td>
+                                <td>@produto.Descricao</td>
+                                <td>@produto.PesoLiquido</td>
+                                <td>@produto.PrecoUnitario</td>
+                                <td class="text-center">
+                                    <a asp-controller="Produto" asp-action="Excluir" asp-route-id="@produto.Id" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a asp-controller="Produto" asp-action="Detalhes" asp-route-id="@produto.Id" class="btn btn-sm btn-info">Detalhes</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tabelaProdutos').DataTable({
+                searching: true,
+                paging: true,
+                "language": {
+                    "lengthMenu": "Exibe _MENU_ Registros por página",
+                    "search": "Procurar",
+                    "paginate": { "previous": "Retorna", "next": "Avança" },
+                    "zeroRecords": "Nada foi encontrado",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sem registros",
+                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                },
+            });
+        });
+    </script>
+}

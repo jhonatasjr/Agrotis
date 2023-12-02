@@ -1,0 +1,125 @@
+﻿@model TesteAgrotis.Models.Produto
+
+<h2 class="mb-5">Cadastro de Produto</h2>
+
+
+<div id="mensagemErro" class="alert alert-danger d-none" role="alert">
+</div>
+
+<form id="formProduto" action="/Produto/Salvar" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label">Nome</label>
+                <input asp-for="Nome" class="form-control" required />
+                <div class="invalid-feedback">Por favor, preencha o nome.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label asp-for="Descricao" class="form-label">Descrição</label>
+                <textarea asp-for="Descricao" class="form-control" rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="PesoLiquido" class="form-label">Peso Líquido</label>
+                <input asp-for="PesoLiquido" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="PrecoUnitario" class="form-label">Preço Unitário</label>
+                <input asp-for="PrecoUnitario" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="float-end">
+        <div class="me-2 d-inline-block">
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+        <div class="d-inline-block">
+            <a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('#formProduto').submit(function (event) {
+                event.preventDefault();
+
+                const mensagemErroElement = $('#mensagemErro');
+                mensagemErroElement.addClass('d-none');
+
+                var nome = $('#Nome').val();
+                var descricao = $('#Descricao').val();
+                var pesoLiquido = $('#PesoLiquido').val();
+                var precoUnitario = $('#PrecoUnitario').val();
+
+                if (nome.trim() === '') {
+                    exibirErro('Por favor, preencha o nome.');
+                    return;
+                }
+                if (pesoLiquido.trim() === '' || isNaN(pesoLiquido)) {
+                    exibirErro('Por favor, insira um valor numérico válido para o Peso Líquido.');
+                    return;
+                }
+
+                if (precoUnitario.trim() === '' || isNaN(precoUnitario)) {
+                    exibirErro('Por favor, insira um valor numérico válido para o Preço Unitário.');
+                    return;
+                }
+
+                var produtoData = {
+                    Nome: nome,
+                    Descricao: descricao,
+                    PesoLiquido: pesoLiquido,
+                    PrecoUnitario: precoUnitario,
+                };
+
+                $.ajax({
+                    url: '/Produto/Salvar',
+                    method: 'POST',
+                    data: produtoData,
+                    success: function (data) {
+                        if (data.success == true) {
+                            Swal.fire({
+                                title: "Produto Salvo!",
+                                text: data.message,
+                                icon: "success",
+                                confirmButtonColor: "#5cb85c",
+                                timer: 3000
+                            }).then(function () {
+                                location.href = "/Produto/Index";
+                            });
+                        }
+                        else {
+                            exibirErro(data.message);
+                        }
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        exibirErro('Erro ao salvar o produto. Por favor, tente novamente mais tarde.');
+                    }
+                });
+            });
+
+            function exibirErro(mensagem) {
+                const mensagemErroElement = $('#mensagemErro');
+                mensagemErroElement.text(mensagem);
+                mensagemErroElement.removeClass('d-none');
+            }
+        });
+    </script>
+}
